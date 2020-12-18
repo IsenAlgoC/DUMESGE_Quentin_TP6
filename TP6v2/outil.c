@@ -33,11 +33,11 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 		}
 		else {		/*On écrit le contact en dernière position dans le répertoire agrandi*/
 			for (int i = 0; i < MAX_NOM; i++) {
-				(rep->tab + rep->nb_elts)->nom[i] = enr.nom[i];
-				(rep->tab + rep->nb_elts)->prenom[i] = enr.prenom[i];
+				(rep->tab + rep->nb_elts)->nom[i] = enr.nom[i];			//enregistrement du nom
+				(rep->tab + rep->nb_elts)->prenom[i] = enr.prenom[i];	//enregistrement du prenom
 			}
 			for (int i = 0; i < MAX_TEL; i++) {
-				(rep->tab + rep->nb_elts)->tel[i] = enr.tel[i];
+				(rep->tab + rep->nb_elts)->tel[i] = enr.tel[i];			//enregistrement du telephone
 			}
 			rep->nb_elts += 1;
 			rep->est_trie = false;
@@ -93,13 +93,15 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 void supprimer_un_contact_dans_rep(Repertoire* rep, int indice) {
 
 	// compléter code ici pour tableau
-	if ((rep->nb_elts >= 1) && (indice > 0) && (indice < rep->nb_elts)) {		/* s'il y a au moins un element ds le tableau */
+	if ((rep->nb_elts >= 1) && (indice > 0) && (indice < rep->nb_elts)) {		/* S'il y a au moins un element ds le tableau */
 																				/* et que l'indice pointe a l'interieur */
 		Enregistrement* save = rep->tab;
-		if (indice == rep->nb_elts) {			/*Si il s'agit du dernier élement, on réalloue le tableau à une taille nb_elts - 1 et donc le contact est bien supprimé */
+		if (indice == rep->nb_elts) {			/*Si il s'agit du dernier élement, on réalloue le tableau à une taille nb_elts - 1*/
+												/*	et donc le contact est bien supprimé */
 			rep->tab = (Enregistrement*)realloc(rep->tab, (rep->nb_elts - 1) * sizeof(Enregistrement));
 			if (rep->tab == NULL) {
-				rep->tab = save; //Il n'y a pas de raison d'entrer dans ce cas car le realloc va juste libérer le dernier élément puisqu'il s'agit d'une taille inférieur
+				rep->tab = save;		//Il n'y a pas de raison d'entrer dans ce cas car le realloc va juste libérer
+										// le dernier élément puisqu'il s'agit d'une taille inférieur
 			}
 		}
 		else {														/*Sinon */
