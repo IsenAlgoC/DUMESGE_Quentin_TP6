@@ -256,6 +256,7 @@ int saisie_enreg(Enregistrement* enr)
 		printf("téléphone tronqué...\n");
 
 	}
+	compact(tmp);
 	/* on copie dans le champ tel... */
 	strncpy_s(enr->tel, _countof(enr->tel), tmp, _TRUNCATE);
 

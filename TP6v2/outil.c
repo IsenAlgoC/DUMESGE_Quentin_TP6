@@ -356,17 +356,18 @@ void compact(char* s) {
 		l++;
 	}
 
-	//Pour supprimer les caractères non numériques, on réécrit les chiffres, en début de chaîne, dans le parcourt de la chaîne
+	//Pour supprimer les caractères non numériques, on réécrit les chiffres, en début de chaîne, dans le parcours de la chaîne
 	int nb_chiffre = 0;
-	for (int i = 0; i < l - 1; i++) {
-		int ascii = (int)*(s + i);
-		if ((ascii > 47) && (ascii < 58)) {		/*table ASCII, 0 à 9 codé de 48 à 57*/
+	for (int i = 0; i < l; i++) {
+		printf("%c", *(s + i));
+		if ((*(s+i) > 47) && (*(s+i) < 58)) {		/*table ASCII, 0 à 9 codé de 48 à 57*/
 			*(s + nb_chiffre) = *(s + i);
+			nb_chiffre++;
 		}
 	}
 
 	//Puis on met '\0' a la suite des chiffres pour indiquer la fin de la chaîne
-	*(s + nb_chiffre) = *(s + l);
+	*(s + nb_chiffre) = '\0';
 
 	return;
 }
