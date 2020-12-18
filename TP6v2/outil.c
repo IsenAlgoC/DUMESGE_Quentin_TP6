@@ -395,11 +395,11 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 		err = fopen_s(&fic_rep, nom_fichier, "w");
 		for (int i = 0; i < rep->nb_elts; i++) {
 			fputs(&((rep->tab + i)->nom), fic_rep);
-			fputs(';', fic_rep);
+			fputs(";", fic_rep);
 			fputs(&((rep->tab + i)->prenom), fic_rep);
-			fputs(';', fic_rep);
+			fputs(";", fic_rep);
 			fputs(&((rep->tab + i)->tel), fic_rep);
-			fputs('\n', fic_rep);
+			fputs("\n", fic_rep);
 		}
 	}
 
@@ -410,11 +410,11 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 		SingleLinkedListElem* CurrentElement = rep->liste->head;
 		for (int i = 0; i < rep->nb_elts; i++) {
 			fputs((CurrentElement->pers).nom, fic_rep);
-			fputs(';', fic_rep);
+			fputs(";", fic_rep);
 			fputs((CurrentElement->pers).prenom, fic_rep);
-			fputs(';', fic_rep);
+			fputs(";", fic_rep);
 			fputs((CurrentElement->pers).tel, fic_rep);
-			fputs('\n', fic_rep);
+			fputs("\n", fic_rep);
 		}
 	}
 #endif
