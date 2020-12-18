@@ -96,21 +96,22 @@ void supprimer_un_contact_dans_rep(Repertoire* rep, int indice) {
 	if ((rep->nb_elts >= 1) && (indice > 0) && (indice < rep->nb_elts)) {		/* S'il y a au moins un element ds le tableau */
 																				/* et que l'indice pointe a l'interieur */
 		Enregistrement* save = rep->tab;
+		rep->tab = (Enregistrement*)realloc(rep->tab, (rep->nb_elts - 1) * sizeof(Enregistrement));
 		if (indice == rep->nb_elts) {			/*Si il s'agit du dernier élement, on réalloue le tableau à une taille nb_elts - 1*/
 												/*	et donc le contact est bien supprimé */
-			rep->tab = (Enregistrement*)realloc(rep->tab, (rep->nb_elts - 1) * sizeof(Enregistrement));
 			if (rep->tab == NULL) {
 				rep->tab = save;		//Il n'y a pas de raison d'entrer dans ce cas car le realloc va juste libérer
-										// le dernier élément puisqu'il s'agit d'une taille inférieur
+										// le dernier élément puisqu'il s'agit d'une taille inférieur, c'est juste pour enlever un warning :p
 			}
 		}
-		else {														/*Sinon */
-			for (int i = 0; i < (rep->nb_elts - indice); i++) {		/* On réécrit les contacts suivants à partir du contact a supprimer puis on réalloue la bonne taille d'emplacement mémoire*/
-				*(rep->tab + indice + i) = *(rep->tab + indice + i + 1);
-			}
-			rep->tab = (Enregistrement*)realloc(rep->tab, (rep->nb_elts - 1) * sizeof(Enregistrement));
+		else {
 			if (rep->tab == NULL) {
 				rep->tab = save; //Idem
+			}
+			else {
+				for (int i = 0; i < (rep->nb_elts - indice); i++) {		/* On réécrit les contacts suivants à partir du contact a supprimer puis on réalloue la bonne taille d'emplacement mémoire*/
+					*(rep->tab + indice + i) = *(rep->tab + indice + i + 1);
+				}
 			}
 		}
 
@@ -385,15 +386,22 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 #ifdef IMPL_TAB
 	if (modif) {
 		err = fopen_s(&fic_rep, nom_fichier, "w");
-		for (int i = 0; i < rep->nb_elts; i++) {
-			fputs((rep->tab + i)->nom, fic_rep);
-			fputs(";", fic_rep);
-			fputs((rep->tab + i)->prenom, fic_rep);
-			fputs(";", fic_rep);
-			fputs((rep->tab + i)->tel, fic_rep);
-			fputs("\n", fic_rep);
+		if (err == 0) {
+			for (int i = 0; i < rep->nb_elts; i++) {
+				fputs((rep->tab + i)->nom, fic_rep);
+				fputs(";", fic_rep);
+				fputs((rep->tab + i)->prenom, fic_rep);
+				fputs(";", fic_rep);
+				fputs((rep->tab + i)->tel, fic_rep);
+				fputs("\n", fic_rep);
+			}
+			return(OK);
+		}
+		else {
+			return(ERROR);
 		}
 	}
+	return(OK);
 
 #else
 #ifdef IMPL_LIST
