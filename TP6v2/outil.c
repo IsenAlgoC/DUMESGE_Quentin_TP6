@@ -31,7 +31,7 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 			rep->tab = save;
 			return(ERROR);
 		}
-		else { /*On écrit le contact dans le répertoire agrandi*/
+		else {		/*On écrit le contact en dernière position dans le répertoire agrandi*/
 			for (int i = 0; i < MAX_NOM; i++) {
 				(rep->tab + rep->nb_elts)->nom[i] = enr.nom[i];
 				(rep->tab + rep->nb_elts)->prenom[i] = enr.prenom[i];
@@ -177,7 +177,7 @@ void affichage_enreg_frmt(Enregistrement enr)
 	for (int i = 0; i < MAX_NOM; i++)
 	{
 		if (*(&(enr.nom) + i) != "") {
-			printf("u%c", enr.nom[i]);
+			printf("%c", enr.nom[i]);
 			compte++;
 		}
 	}
@@ -192,7 +192,7 @@ void affichage_enreg_frmt(Enregistrement enr)
 	for (int i = 0; i < MAX_NOM; i++)
 	{
 		if (*(&(enr.prenom) + i) != "") {
-			printf("u%c", enr.prenom[i]);
+			printf("%c", enr.prenom[i]);
 			compte++;
 		}
 	}
@@ -207,7 +207,7 @@ void affichage_enreg_frmt(Enregistrement enr)
 	for (int i = 0; i < MAX_TEL; i++)
 	{
 		if (*(&(enr.tel) + i) != "") {
-			printf("u%c", enr.tel[i]);
+			printf("%c", enr.tel[i]);
 			compte++;
 		}
 	}
@@ -394,11 +394,11 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 	if (modif) {
 		err = fopen_s(&fic_rep, nom_fichier, "w");
 		for (int i = 0; i < rep->nb_elts; i++) {
-			fputs(&((rep->tab + i)->nom), fic_rep);
+			fputs((rep->tab + i)->nom, fic_rep);
 			fputs(";", fic_rep);
-			fputs(&((rep->tab + i)->prenom), fic_rep);
+			fputs((rep->tab + i)->prenom, fic_rep);
 			fputs(";", fic_rep);
-			fputs(&((rep->tab + i)->tel), fic_rep);
+			fputs((rep->tab + i)->tel, fic_rep);
 			fputs("\n", fic_rep);
 		}
 	}
