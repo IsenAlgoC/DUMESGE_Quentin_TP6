@@ -176,47 +176,36 @@ void affichage_enreg_frmt(Enregistrement enr)
 	int compte = 0;
 	/*Affichage nom*/
 	printf("|");
-	for (int i = 0; i < MAX_NOM; i++)
-	{
-		if (*(&(enr.nom) + i) != "") {
-			printf("%c", enr.nom[i]);
+	while (enr.nom[compte] != '\0') {
+			printf("%c", enr.nom[compte]);
 			compte++;
-		}
 	}
-	for (int i = compte; i < MAX_NOM; i++)
-	{
+	for (int i = compte; i < MAX_NOM; i++) {
 		printf(" ");
 	}
 	compte = 0;
 
 	/*Affichage prenom*/
 	printf("|");
-	for (int i = 0; i < MAX_NOM; i++)
-	{
-		if (*(&(enr.prenom) + i) != "") {
-			printf("%c", enr.prenom[i]);
-			compte++;
-		}
+	while (enr.prenom[compte] != '\0') {
+		printf("%c", enr.prenom[compte]);
+		compte++;
 	}
-	for (int i = compte; i < MAX_NOM; i++)
-	{
+	for (int i = compte; i < MAX_NOM; i++) {
 		printf(" ");
 	}
 	compte = 0;
 
 	/*Affichage tel*/
 	printf("|");
-	for (int i = 0; i < MAX_TEL; i++)
-	{
-		if (*(&(enr.tel) + i) != "") {
-			printf("%c", enr.tel[i]);
-			compte++;
-		}
+	while (enr.tel[compte] != '\0') {
+		printf("%c", enr.tel[compte]);
+		compte++;
 	}
-	for (int i = compte; i < MAX_TEL; i++)
-	{
+	for (int i = compte; i < MAX_TEL; i++) {
 		printf(" ");
 	}
+	compte = 0;
 	printf("\n");
 
 } /* fin affichage_enreg */
